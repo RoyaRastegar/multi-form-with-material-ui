@@ -23,12 +23,10 @@ function FormUser() {
     phone: "",
   });
   // functions
-  function nextStep(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function nextStep() {
     setStep((step) => step + 1);
   }
-  function prevStep(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function prevStep() {
     setStep((step) => step - 1);
   }
   function handelInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -37,11 +35,24 @@ function FormUser() {
   }
   switch (step) {
     case 1:
-      return <FormUserDetail />;
+      return (
+        <FormUserDetail
+          values={user}
+          nextStep={nextStep}
+          handelinput={handelInput}
+        />
+      );
     case 2:
-      return <FormPersonalDetail />;
+      return (
+        <FormPersonalDetail
+          values={user}
+          pervStep={prevStep}
+          nextStep={nextStep}
+          handelinput={handelInput}
+        />
+      );
     case 3:
-      return <Confirm />;
+      return <Confirm values={user} nextStep={nextStep} pervStep={prevStep} />;
     case 4:
       return <Success />;
     default:
